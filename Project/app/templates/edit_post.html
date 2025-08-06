@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control") }}
+        </div>
+        
+        <div class="mb-3">
+            {{ form.content.label(class="form-label") }}
+            {{ form.content(class="form-control", rows="5") }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Current Images:</label><br>
+            {% for img in post.images %}
+                <img src="{{ url_for('static', filename='uploads/' + img.filename) }}" alt="" width="100" class="me-2 mb-2">
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.images.label(class="form-label") }}
+            {{ form.images(class="form-control", multiple=True) }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

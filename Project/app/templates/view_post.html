@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-3">{{ post.title }}</h2>
+    <p class="text-muted">Posted by {{ post.author.username }} on {{ post.created_at.strftime('%B %d, %Y') }}</p>
+    <hr>
+    <p>{{ post.content }}</p>
+
+    {% if post.images %}
+    <h4 class="mt-4">Images:</h4>
+    <div class="row">
+        {% for image in post.images %}
+        <div class="col-md-4 mb-4">
+            <img src="{{ url_for('static', filename='uploads/' + image.filename) }}" class="img-fluid rounded shadow-sm">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %}
